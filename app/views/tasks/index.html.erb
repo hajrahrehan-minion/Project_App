@@ -1,0 +1,36 @@
+<div class="tasks-container">
+  <div class="navigation">
+    <%= link_to "← Back to #{@project.title}", project_path(@project), class: "btn-back" %>
+  </div>
+
+  <header class="page-header">
+    <h1>Tasks for <%= @project.title %></h1>
+    <%= link_to "New Task", new_project_task_path(@project), class: "btn btn-primary" %>
+  </header>
+
+  <% if @tasks.any? %>
+    <ul class="task-list">
+      <% @tasks.each do |task| %>
+        <li class="task-item" id="<%= dom_id(task) %>">
+          <div class="task-content">
+            <%= link_to task.title, project_task_path(@project, task), class: "task-title" %>
+            <span class="task-date">Added <%= time_ago_in_words(task.created_at) %> ago</span>
+          </div>
+
+          <div class="task-actions">
+            <%= link_to "Edit", edit_project_task_path(@project, task), class: "btn btn-outline" %>
+            <%= button_to "Delete", project_task_path(@project, task),
+                          method: :delete,
+                          data: { turbo_confirm: "Delete this task?" },
+                          class: "btn-sm btn-danger" %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <div class="empty-state">
+      <p>No tasks created for this project yet.</p>
+      <%= link_to "Create your first task", new_project_task_path(@project), class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>

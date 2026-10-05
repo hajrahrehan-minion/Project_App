@@ -1,0 +1,35 @@
+<div class="projects-container">
+  <header class="page-header">
+    <h1>Projects</h1>
+    <%= link_to "New Project", new_project_path, class: "btn btn-primary" %>
+  </header>
+
+  <% if @projects.any? %>
+    <div class="projects-grid">
+      <% @projects.each do |project| %>
+        <div class="project-card" id="<%= dom_id(project) %>">
+          <div class="project-card-header">
+            <h2><%= link_to project.title, project_path(project) %></h2>
+            <span class="badge">
+              <%= pluralize(project.tasks.size, "task") %>
+            </span>
+          </div>
+
+          <div class="project-actions">
+            <%= link_to "Show", project_path(project), class: "btn btn-secondary" %>
+            <%= link_to "Edit", edit_project_path(project), class: "btn btn-outline" %>
+            <%= button_to "Delete", project_path(project), 
+                          method: :delete, 
+                          data: { turbo_confirm: "Are you sure you want to delete this project?" }, 
+                          class: "btn btn-danger" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="empty-state">
+      <p>No projects found.</p>
+      <%= link_to "Create your first project", new_project_path, class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>

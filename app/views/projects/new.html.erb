@@ -1,0 +1,30 @@
+<div class="project-form-container">
+  <div class="navigation">
+    <%= link_to "← Back to Projects", projects_path, class: "btn-back" %>
+  </div>
+
+  <h1>New Project</h1>
+
+  <%= form_with(model: @project, local: true) do |f| %>
+    <% if @project.errors.any? %>
+      <div class="error-messages">
+        <h2><%= pluralize(@project.errors.count, "error") %> prohibited this project from being saved:</h2>
+        <ul>
+          <% @project.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= f.label :title %>
+      <%= f.text_field :title, placeholder: "Enter project title...", autofocus: true, class: "form-input" %>
+    </div>
+
+    <div class="form-actions">
+      <%= f.submit "Create Project", class: "btn btn-primary" %>
+      <%= link_to "Cancel", projects_path, class: "btn btn-secondary" %>
+    </div>
+  <% end %>
+</div>

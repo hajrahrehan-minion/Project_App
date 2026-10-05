@@ -1,0 +1,61 @@
+<div class="project-detail-container">
+  <!-- Back Link & Header -->
+  <div class="navigation">
+    <%= link_to "← Back to Projects", projects_path, class: "btn-back" %>
+  </div>
+
+  <header class="project-header">
+    <div class="title-section">
+      <h1><%= @project.title %></h1>
+      <span class="badge">
+        <%= pluralize(@project.tasks.count, "task") %>
+      </span>
+    </div>
+
+    <div class="project-timestamps">
+      <small>Created: <%= @project.created_at.strftime("%B %d, %Y") %></small> | 
+      <small>Updated: <%= @project.updated_at.strftime("%B %d, %Y") %></small>
+    </div>
+
+    <div class="project-actions">
+      <%= link_to "Edit Project", edit_project_path(@project), class: "btn btn-outline" %>
+      <%= button_to "Delete Project", project_path(@project), 
+                    method: :delete, 
+                    data: { turbo_confirm: "Are you sure? This will delete all associated tasks." }, 
+                    class: "btn btn-danger" %>
+    </div>
+  </header>
+
+  <hr class="divider">
+
+  <!-- Tasks Section -->
+  <section class="tasks-section">
+    <div class="tasks-header">
+      <h2>Tasks</h2>
+      <%= link_to "Add New Task", new_project_task_path(@project), class: "btn btn-primary" %>
+    </div>
+
+    <!-- List Existing Tasks -->
+    <% if @project.tasks.any? %>
+      <ul class="task-list">
+        <% @project.tasks.each do |task| %>
+          <li class="task-item" id="<%= dom_id(task) %>">
+            <div class="task-content">
+              <span class="task-title"><%= task.title %></span>
+              <span class="task-date">Added <%= time_ago_in_words(task.created_at) %> ago</span>
+            </div>
+
+            <div class="task-actions">
+              <%= button_to "Delete", project_task_path(@project, task), 
+                            method: :delete, 
+                            data: { turbo_confirm: "Delete this task?" }, 
+                            class: "btn-sm btn-danger" %>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p class="empty-state">No tasks created for this project yet.</p>
+    <% end %>
+  </section>
+</div>
