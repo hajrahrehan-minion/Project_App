@@ -1,0 +1,22 @@
+<div class="task-detail-container">
+  <div class="navigation">
+    <%= link_to "← Back to #{@project.title}", project_path(@project), class: "btn-back" %>
+  </div>
+
+  <header class="task-header">
+    <h1><%= @task.title %></h1>
+    <div class="task-actions">
+      <%= link_to "Edit Task", edit_project_task_path(@project, @task), class: "btn btn-outline" %>
+      <%= button_to "Delete Task", project_task_path(@project, @task),
+                    method: :delete,
+                    data: { turbo_confirm: "Delete this task?" },
+                    class: "btn btn-danger" %>
+    </div>
+  </header>
+
+  <div class="task-details">
+    <p>Project: <%= link_to @project.title, project_path(@project) %></p>
+    <p>Created: <%= @task.created_at.strftime("%B %d, %Y") %></p>
+    <p>Updated: <%= @task.updated_at.strftime("%B %d, %Y") %></p>
+  </div>
+</div>
