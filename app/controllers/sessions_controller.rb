@@ -1,4 +1,4 @@
-#new file generated after authentication module was created
+# new file generated after authentication module was created
 class SessionsController < ApplicationController
   allow_unauthenticated_access only: %i[ new create ]
   rate_limit to: 10, within: 3.minutes, only: :create, with: -> { redirect_to new_session_path, alert: "Try again later." }
@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
   def new
   end
 
-  #creating new user session after authentication
+  # creating new user session after authentication
   def create
     if user = User.authenticate_by(params.permit(:email_address, :password))
       start_new_session_for user
@@ -16,7 +16,7 @@ class SessionsController < ApplicationController
     end
   end
 
-  #destroying user session after logout
+  # destroying user session after logout
   def destroy
     terminate_session
     redirect_to new_session_path, status: :see_other
