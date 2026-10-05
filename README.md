@@ -1,24 +1,34 @@
-# README
+# Project App
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A small Rails app for keeping track of Projects with a has_many association to Tasks. All Tasks belong_to a Project. Contains Rspec files for both models and requests. Authorization added using rails native authentication. 
+Built as a learning project.
 
-Things you may want to cover:
+## What it does
 
-* Ruby version
+- Log in with email and password (with password reset)
+- Create, edit and delete projects
+- Add tasks to each project
 
-* System dependencies
+## Tech
 
-* Configuration
+Ruby 3.4.4 · Rails 8.1 · SQLite · RSpec
 
-* Database creation
+## Getting started
 
-* Database initialization
+    git clone https://github.com/hajrahrehan-minion/Project_App.git
+    cd Project_App
+    bundle install
+    bin/rails db:prepare
 
-* How to run the test suite
+There's no sign-up page yet, so create your first user from the console:
 
-* Services (job queues, cache servers, search engines, etc.)
+    bin/rails console
+    User.create!(email_address: "you@example.com", password: "password")
 
-* Deployment instructions
+Then start the server and log in at http://localhost:3000:
 
-* ...
+    bin/dev
+
+## Running the tests
+
+    bundle exec rspec
