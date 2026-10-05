@@ -15,7 +15,7 @@ RSpec.describe Task, type: :model do
       expect(task.errors[:project]).to include("must exist")
     end
 
-  #on purpose failing test
+    # on purpose failing test
     it "is invalid when it has no title" do
       task = described_class.new(project: Project.new(title: "Example project"))
 

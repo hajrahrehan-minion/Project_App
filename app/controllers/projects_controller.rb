@@ -1,5 +1,4 @@
 class ProjectsController < ApplicationController
-
 def index
  @projects = Project.all
 end
@@ -12,37 +11,36 @@ def new
  @project = Project.new
 end
 
-def create  
+def create
  @project = Project.new(project_params)
  if @project.save
-  redirect_to @project, notice: 'Project was successfully created.'
+  redirect_to @project, notice: "Project was successfully created."
  else
   render :new
  end
 end
 
-def edit 
+def edit
  @project = Project.find(params[:id])
 end
 
 def update
  @project = Project.find(params[:id])
  if @project.update(project_params)
-  redirect_to @project, notice: 'Project was successfully updated.'
+  redirect_to @project, notice: "Project was successfully updated."
  else
   render :edit
  end
-end 
+end
 
 def destroy
  @project = Project.find(params[:id])
  @project.destroy
- redirect_to projects_url, notice: 'Project was successfully destroyed.'
+ redirect_to projects_url, notice: "Project was successfully destroyed."
 end
 
 private
 def project_params
  params.require(:project).permit(:title, :description)
 end
-
 end
